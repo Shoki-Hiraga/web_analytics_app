@@ -16,9 +16,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-/setting_file/json_file
-/setting_file/yaml_file
-/setting_file/browser_login
+/dataget_app/setting_file/json_file
 **/__pycache__/**
 __pycache__/
 AI_apikey.py
