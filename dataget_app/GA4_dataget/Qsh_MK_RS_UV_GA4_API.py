@@ -2,9 +2,10 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from setting_file.header import *
+set_start_date
+set_end_date
+from setting_file.GA4_Set.QshURL_MK_RS_UV import URLS
 
-set_start_date = "2025-05-01"
-set_end_date = "2025-06-01"
 SESSION_MEDIUM_FILTER = "organic"
 
 # 認証設定
