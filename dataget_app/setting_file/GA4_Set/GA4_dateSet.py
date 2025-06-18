@@ -1,4 +1,3 @@
-# setting_file/dateSet.py
 from datetime import date, timedelta
 
 # 月末を求める関数

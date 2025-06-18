@@ -1,5 +1,3 @@
-# setting_file/GA4_Set/date_Duplicate.py
-
 from setting_file.setFunc import get_db_config
 import mysql.connector
 import traceback

@@ -4,8 +4,8 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from setting_file.header import *
 from setting_file.setFunc import get_db_config
-from setting_file.GA4_Set.dateSet import generate_monthly_date_ranges
-from setting_file.GA4_Set.date_Duplicate import record_exists
+from setting_file.GA4_Set.GA4_dateSet import generate_monthly_date_ranges
+from setting_file.GA4_Set.GA4_date_Duplicate import record_exists
 from setting_file.GA4_Set.QshURL_MK_RS_UV import URLS
 
 
@@ -22,9 +22,6 @@ load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', 'config', 
 
 # DB接続関数
 def get_db_connection():
-    from setting_file.setFunc import get_db_config
-    import traceback
-
     try:
         config = get_db_config()
         conn = mysql.connector.connect(**config)
