@@ -115,7 +115,7 @@ try:
                 continue
             search_url_data, original_url = get_search_url_data(site_url, url)
 
-            delay = random.uniform(1.0, 2.5)
+            delay = random.uniform(3.0, 4.5)
             print(f'遅延処理 {delay:.2f} 秒')
             time.sleep(delay)
 

@@ -184,7 +184,7 @@ try:
                 end_date=db_end_date
             )
 
-            delay = random.uniform(1.0, 2.5)
+            delay = random.uniform(3.0, 4.5)
             print(f'[DEBUG] 遅延 {delay:.2f} 秒\n')
             time.sleep(delay)
 
