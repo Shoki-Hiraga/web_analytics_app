@@ -1,7 +1,7 @@
 import sys
 import os
-# パス追加
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from setting_file.header import *
 from setting_file.setFunc import get_db_config
 from setting_file.GA4_Set.GA4_dateSet import generate_monthly_date_ranges
