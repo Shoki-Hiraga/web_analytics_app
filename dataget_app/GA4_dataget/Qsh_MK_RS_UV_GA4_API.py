@@ -1,18 +1,13 @@
 import sys
 import os
-import time
-import random
-import mysql.connector
-from dotenv import load_dotenv
-import traceback
-
 # パス追加
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from setting_file.header import *
-from datetime import datetime, date
 from setting_file.setFunc import get_db_config
-
+from setting_file.GA4_Set.dateSet import generate_monthly_date_ranges
+from setting_file.GA4_Set.date_Duplicate import record_exists
 from setting_file.GA4_Set.QshURL_MK_RS_UV import URLS
+
 
 SESSION_MEDIUM_FILTER = "organic"
 
@@ -156,33 +151,45 @@ def insert_into_db(landing_url, session_medium, total_sessions, cv_count, cvr, s
         traceback.print_exc()
 
 # メイン処理
+date_ranges = generate_monthly_date_ranges()
+
 try:
     print(f"[INFO] 開始 URLS = {URLS}")
-    for landing_url in URLS:
-        print(f"[INFO] 処理中: {landing_url}")
-        total_sessions = get_total_sessions_from_landing(landing_url)
-        cv_count = get_cv_sessions_from_landing(landing_url)
+    for start_date, end_date in date_ranges:
+        set_start_date = start_date.strftime("%Y-%m-%d")
+        set_end_date = end_date.strftime("%Y-%m-%d")
+        db_start_date = start_date
+        db_end_date = end_date
 
-        if total_sessions > 0:
-            cvr = round((cv_count / total_sessions) * 100, 2)
-        else:
-            cvr = 0.0
+        print(f"[INFO] 処理期間: {set_start_date} ～ {set_end_date}")
 
-        print(f'[INFO] ランディングページ: {landing_url}, セッション: {total_sessions}, CV: {cv_count}, CVR: {cvr:.2f}%')
+        for landing_url in URLS:
+            # 重複チェックを実行
+            if record_exists(landing_url, SESSION_MEDIUM_FILTER, db_start_date, db_end_date):
+                print(f"[SKIP] 既に登録済み: {landing_url}, {db_start_date} - {db_end_date}")
+                continue  # スキップして次へ
 
-        insert_into_db(
-            landing_url=landing_url,
-            session_medium=SESSION_MEDIUM_FILTER,
-            total_sessions=total_sessions,
-            cv_count=cv_count,
-            cvr=cvr,
-            start_date=db_start_date,
-            end_date=db_end_date
-        )
+            print(f"[INFO] 処理中: {landing_url}")
+            total_sessions = get_total_sessions_from_landing(landing_url)
+            cv_count = get_cv_sessions_from_landing(landing_url)
 
-        delay = random.uniform(1.0, 2.5)
-        print(f'[DEBUG] 遅延 {delay:.2f} 秒\n')
-        time.sleep(delay)
+            cvr = round((cv_count / total_sessions) * 100, 2) if total_sessions > 0 else 0.0
+
+            print(f'[INFO] ランディングページ: {landing_url}, セッション: {total_sessions}, CV: {cv_count}, CVR: {cvr:.2f}%')
+
+            insert_into_db(
+                landing_url=landing_url,
+                session_medium=SESSION_MEDIUM_FILTER,
+                total_sessions=total_sessions,
+                cv_count=cv_count,
+                cvr=cvr,
+                start_date=db_start_date,
+                end_date=db_end_date
+            )
+
+            delay = random.uniform(1.0, 2.5)
+            print(f'[DEBUG] 遅延 {delay:.2f} 秒\n')
+            time.sleep(delay)
 
 except Exception as err:
     print(f'\n[CRITICAL ERROR] エラーが発生しました: {err}')

@@ -10,6 +10,11 @@ from google.analytics.data_v1beta.types import (
     FilterExpression, FilterExpressionList, Filter
 )
 from datetime import datetime
+import time
+import random
+import mysql.connector
+from dotenv import load_dotenv
+import traceback
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))# スクリプトが存在するディレクトリを作業ディレクトリとして設定
 
