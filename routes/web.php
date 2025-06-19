@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Ga4QshaOhController;
+use App\Http\Controllers\GscQshaOhController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+Route::get('/ga4_qsha_oh', [Ga4QshaOhController::class, 'index']);
+Route::get('/gsc_qsha_oh', [GscQshaOhController::class, 'index']);
