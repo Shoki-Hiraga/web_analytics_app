@@ -1,0 +1,46 @@
+/* テーブルのラッパーを作成して横スクロール対応 */
+.table-container {
+    width: 100%;
+    margin: 50px auto;
+    overflow-x: auto; /* 横スクロールを可能に */
+    -webkit-overflow-scrolling: touch; /* スムーズスクロール対応 */
+    max-width: 1000px;
+}
+
+/* テーブルの基本スタイル */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    white-space: nowrap; /* 文字折り返しを防ぐ */
+    margin: 5px 20px 5px 20px;
+}
+
+/* セルのスタイル */
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+/* ヘッダーのスタイル */
+th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+/* スマホ対応 */
+@media (max-width: 768px) {
+    .table-container {
+        width: 100%;
+        overflow-x: auto; /* ここで横スクロールを明示 */
+    }
+
+    table {
+        max-width: none; /* 画面幅に制限されないようにする */
+    }
+
+    th, td {
+        padding: 5px;
+        font-size: 14px;
+    }
+}

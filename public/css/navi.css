@@ -1,0 +1,55 @@
+/* パンくずリストのカスタマイズ */
+.breadcrumb {
+    background-color: #dae9ff;
+    height: 35px;
+    position: fixed;
+    top: 0%; /* 任意の位置 */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    list-style: none;
+    padding: 0 10px;
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap; /* 折り返しを防ぐ */
+    overflow-x: auto; /* 横スクロールを許可 */
+    width: 100%;
+    max-width: 100vw; /* 画面幅を超えないように */
+    justify-content: center; /* 初期状態は中央揃え */
+}
+
+/* パンくずリストが画面幅を超えた場合に左揃え */
+@media screen and (max-width: 767px) { /* 画面幅が767px以下（SP表示）なら適用 */
+    .breadcrumb:has(li:nth-child(4)) { /* パンくずが4個以上なら適用 */
+        left: 0;
+        transform: none;
+        justify-content: flex-start;
+    }
+}
+
+
+/* スクロールバーのデザイン（必要に応じて追加） */
+.breadcrumb::-webkit-scrollbar {
+    height: 4px;
+}
+.breadcrumb::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 2px;
+}
+.breadcrumb::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* パンくずリストのアイテム */
+.breadcrumb li {
+    display: flex;
+    align-items: center;
+}
+
+/* パンくずリストの区切り（> の追加） */
+.breadcrumb li:not(:last-child)::after {
+    content: " > ";
+    padding: 0 8px;
+    color: #888;
+}

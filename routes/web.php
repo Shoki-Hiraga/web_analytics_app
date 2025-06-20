@@ -16,6 +16,10 @@ use App\Http\Controllers\GscQshaOhController;
 */
 
 
+Route::get('/', function () {
+    return view('main.index');
+});
 
-Route::get('/ga4_qsha_oh', [Ga4QshaOhController::class, 'index']);
-Route::get('/gsc_qsha_oh', [GscQshaOhController::class, 'index']);
+
+Route::get('/ga4_qsha_oh', [Ga4QshaOhController::class, 'index'])->name('ga4_qsha_oh');
+Route::get('/gsc_qsha_oh', [GscQshaOhController::class, 'index'])->name('gsc_qsha_oh');
