@@ -25,7 +25,7 @@
             <tbody>
                 @foreach ($records as $record)
                     <tr>
-                        <td>{{ $record->page_url }}</td>
+                        <td>{{ Str::replace('https://www.qsha-oh.com', '', $record->page_url) }}</td>
                         <td>{{ number_format($record->total_impressions) }}</td>
                         <td>{{ number_format($record->total_clicks) }}</td>
                         <td>{{ number_format($record->avg_ctr * 100, 2) }}%</td>
