@@ -29,3 +29,11 @@ Route::get('/ga4_qsha_oh/usersvoice', [Ga4QshaOhController::class, 'showByDirect
 Route::get('/gsc_qsha_oh/maker', [GscQshaOhController::class, 'showByDirectory'])->name('gsc_qsha_oh.maker');
 Route::get('/gsc_qsha_oh/result', [GscQshaOhController::class, 'showByDirectory'])->name('gsc_qsha_oh.result');
 Route::get('/gsc_qsha_oh/usersvoice', [GscQshaOhController::class, 'showByDirectory'])->name('gsc_qsha_oh.usersvoice');
+
+// GA4 YoY & MoM
+Route::get('/ga4_qsha_oh/yoy', [Ga4QshaOhController::class, 'yoy'])->name('ga4_qsha_oh.yoy');
+Route::get('/ga4_qsha_oh/mom', [Ga4QshaOhController::class, 'mom'])->name('ga4_qsha_oh.mom');
+
+// GSC YoY & MoM
+Route::get('/gsc_qsha_oh/yoy', [GscQshaOhController::class, 'yoy'])->name('gsc_qsha_oh.yoy');
+Route::get('/gsc_qsha_oh/mom', [GscQshaOhController::class, 'mom'])->name('gsc_qsha_oh.mom');

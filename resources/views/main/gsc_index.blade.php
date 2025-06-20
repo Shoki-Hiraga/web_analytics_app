@@ -9,6 +9,13 @@
     <h1>@include('components.sitename')</h1>
 
     <h2>GSC 集計データ @isset($directory)（{{ $directory }}）@endisset</h2>
+
+    <form method="GET" action="{{ url()->current() }}">
+        <label>開始日: <input type="date" name="start_date" value="{{ request('start_date') }}"></label>
+        <label>終了日: <input type="date" name="end_date" value="{{ request('end_date') }}"></label>
+        <button type="submit">絞り込む</button>
+    </form>
+
     <div class="table-container">
         <table border="1" cellpadding="8" cellspacing="0">
             <thead>
