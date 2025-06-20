@@ -8,7 +8,7 @@
 <body>
     <h1>@include('components.sitename')</h1>
 
-    <h2>GSC 集計データ</h2>
+    <h2>GSC 集計データ @isset($directory)（{{ $directory }}）@endisset</h2>
     <div class="table-container">
         <table border="1" cellpadding="8" cellspacing="0">
             <thead>
