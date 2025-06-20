@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <title>GA4 MoM | @include('components.sitename')</title>
+    <title>GA4 YoY | @include('components.sitename')</title>
     @include('components.header')
     <link rel="canonical" href="{{ url()->current() }}">
 </head>
@@ -31,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($thisMonth as $record)
+                @foreach ($thisYear as $record)
                     <tr>
                         <td>{{ $record->landing_url }}</td>
                         <td>{{ $record->session_medium }}</td>
@@ -46,7 +46,7 @@
         </table>
     </div>
 
-    <h3>{{ $baseDate->copy()->subMonth()->format('Y年m月') }}のデータ</h3>
+    <h3>{{ $baseDate->copy()->subYear()->format('Y年m月') }}のデータ</h3>
     <div class="table-container">
         <table border="1" cellpadding="8" cellspacing="0">
             <thead>
@@ -61,7 +61,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($lastMonth as $record)
+                @foreach ($lastYear as $record)
                     <tr>
                         <td>{{ $record->landing_url }}</td>
                         <td>{{ $record->session_medium }}</td>

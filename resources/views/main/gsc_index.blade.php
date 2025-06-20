@@ -44,7 +44,6 @@
             </tbody>
         </table>
     </div>
-    <h2>このWebサイトの設立の背景</h2>
 
 </body>
 @include('components.footer')
