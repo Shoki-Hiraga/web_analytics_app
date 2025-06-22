@@ -15,12 +15,15 @@ class Ga4QshaOhController extends Controller
     {
         $query = Ga4QshaOh::query();
 
-        if ($request->filled('start_date')) {
-            $query->where('start_date', '>=', $request->input('start_date'));
+        // 年月から絞り込み
+        if ($request->filled('start_month')) {
+            $start = Carbon::parse($request->input('start_month'))->startOfMonth();
+            $query->where('start_date', '>=', $start);
         }
 
-        if ($request->filled('end_date')) {
-            $query->where('end_date', '<=', $request->input('end_date'));
+        if ($request->filled('end_month')) {
+            $end = Carbon::parse($request->input('end_month'))->endOfMonth();
+            $query->where('start_date', '<=', $end); // ← `start_date`で統一
         }
 
         $records = $query->orderBy('start_date', 'desc')->get();
@@ -38,12 +41,14 @@ class Ga4QshaOhController extends Controller
 
         $query = Ga4QshaOh::where('landing_url', $directory);
 
-        if ($request->filled('start_date')) {
-            $query->where('start_date', '>=', $request->input('start_date'));
+        if ($request->filled('start_month')) {
+            $start = Carbon::parse($request->input('start_month'))->startOfMonth();
+            $query->where('start_date', '>=', $start);
         }
 
-        if ($request->filled('end_date')) {
-            $query->where('end_date', '<=', $request->input('end_date'));
+        if ($request->filled('end_month')) {
+            $end = Carbon::parse($request->input('end_month'))->endOfMonth();
+            $query->where('start_date', '<=', $end);
         }
 
         $records = $query->orderBy('start_date', 'desc')->get();

@@ -1,5 +1,0 @@
-URLS = [
-    "/maker/",
-    "/result/",
-    "/usersvoice/"
-]
