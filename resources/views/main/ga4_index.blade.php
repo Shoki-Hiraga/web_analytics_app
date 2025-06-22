@@ -11,16 +11,7 @@
 
     <h2>GA4 集計データ @isset($directory)（{{ $directory }}）@endisset</h2>
 
-    <form method="GET" action="{{ url()->current() }}">
-        <label>開始月: 
-            <input type="month" name="start_month" value="{{ request('start_month') }}">
-        </label>
-        <label>終了月: 
-            <input type="month" name="end_month" value="{{ request('end_month') }}">
-        </label>
-        <button type="submit">絞り込む</button>
-    </form>
-
+@include('components.yyyy-mm-form')
 
     <div class="table-container">
         <table border="1" cellpadding="8" cellspacing="0">
