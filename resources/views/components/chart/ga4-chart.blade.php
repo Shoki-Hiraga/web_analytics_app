@@ -26,7 +26,7 @@
 
     @if (!empty($chartEntries))
         @foreach ($chartEntries as $entry)
-            <h3>{{ $entry['label'] }}</h3>
+            <h3 class="chart-title">{{ $entry['label'] }}</h3>
 
             <p>セッション数</p>
             <canvas id="{{ $entry['sessionId'] }}" height="60"></canvas>
