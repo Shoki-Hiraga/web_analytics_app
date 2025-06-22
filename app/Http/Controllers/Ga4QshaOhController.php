@@ -15,7 +15,6 @@ class Ga4QshaOhController extends Controller
     {
         $query = Ga4QshaOh::query();
 
-        // 年月から絞り込み
         if ($request->filled('start_month')) {
             $start = Carbon::parse($request->input('start_month'))->startOfMonth();
             $query->where('start_date', '>=', $start);
@@ -23,12 +22,25 @@ class Ga4QshaOhController extends Controller
 
         if ($request->filled('end_month')) {
             $end = Carbon::parse($request->input('end_month'))->endOfMonth();
-            $query->where('start_date', '<=', $end); // ← `start_date`で統一
+            $query->where('start_date', '<=', $end);
         }
 
-        $records = $query->orderBy('start_date', 'desc')->get();
+        $records = $query->orderBy('start_date', 'asc')->get();
 
-        return view('main.ga4_index', compact('records'));
+        // チャート用データ（landing_urlごとにまとめる）
+        $chartDataByUrl = $records->groupBy('landing_url')->map(function ($groupedByUrl) {
+            return $groupedByUrl->groupBy(function ($item) {
+                return $item->start_date->format('Y-m');
+            })->map(function ($items, $month) {
+                return [
+                    'month' => $month,
+                    'total_sessions' => $items->sum('total_sessions'),
+                    'cv_count' => $items->sum('cv_count'),
+                ];
+            })->values();
+        });
+
+        return view('main.ga4_index', compact('records', 'chartDataByUrl'));
     }
 
     /**
@@ -51,9 +63,20 @@ class Ga4QshaOhController extends Controller
             $query->where('start_date', '<=', $end);
         }
 
-        $records = $query->orderBy('start_date', 'desc')->get();
+        $records = $query->orderBy('start_date', 'asc')->get();
 
-        return view('main.ga4_index', compact('records', 'directory'));
+        // chartDataByUrl を1件分でも生成する（同じ構造）
+        $chartDataByUrl = collect([$directory => $records->groupBy(function ($item) {
+            return $item->start_date->format('Y-m');
+        })->map(function ($items, $month) {
+            return [
+                'month' => $month,
+                'total_sessions' => $items->sum('total_sessions'),
+                'cv_count' => $items->sum('cv_count'),
+            ];
+        })->values()]);
+
+        return view('main.ga4_index', compact('records', 'directory', 'chartDataByUrl'));
     }
 
     /**

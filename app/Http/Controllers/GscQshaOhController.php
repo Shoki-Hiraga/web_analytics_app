@@ -26,18 +26,40 @@ class GscQshaOhController extends Controller
             $query->where('start_date', '<=', $end);
         }
 
-        $records = $query->orderBy('start_date', 'desc')->get();
+        $records = $query->orderBy('start_date', 'asc')->get();
 
-        return view('main.gsc_index', compact('records'));
+        // チャートデータをページURLごとに月単位でまとめる
+        $chartDataByUrl = $records->groupBy('page_url')->map(function ($groupedByUrl) {
+            return $groupedByUrl->groupBy(function ($item) {
+                return $item->start_date->format('Y-m');
+            })->map(function ($items, $month) {
+                $impressions = $items->sum('total_impressions');
+                $clicks = $items->sum('total_clicks');
+                $ctr = $impressions > 0 ? round(($clicks / $impressions) * 100, 2) : 0;
+                $position = $items->avg('avg_position');
+
+                return [
+                    'month' => $month,
+                    'impressions' => $impressions,
+                    'clicks' => $clicks,
+                    'ctr' => $ctr,
+                    'position' => round($position, 2),
+                ];
+            })->values();
+        });
+
+        return view('main.gsc_index', compact('records', 'chartDataByUrl'));
     }
+
 
     public function showByDirectory(Request $request)
     {
         $path = $request->path();
         $directory = '/' . last(explode('/', $path)) . '/';
         $baseUrl = 'https://www.qsha-oh.com';
+        $fullUrl = $baseUrl . $directory;
 
-        $query = GscQshaOh::where('page_url', $baseUrl . $directory);
+        $query = GscQshaOh::where('page_url', $fullUrl);
 
         if ($request->filled('start_month')) {
             $start = Carbon::parse($request->input('start_month'))->startOfMonth();
@@ -49,9 +71,29 @@ class GscQshaOhController extends Controller
             $query->where('start_date', '<=', $end);
         }
 
-        $records = $query->orderBy('start_date', 'desc')->get();
+        $records = $query->orderBy('start_date', 'asc')->get();
 
-        return view('main.gsc_index', compact('records', 'directory'));
+        // ✅ この1行がポイント
+        $chartDataByUrl = $records->groupBy('page_url')->map(function ($groupedByUrl) {
+            return $groupedByUrl->groupBy(function ($item) {
+                return $item->start_date->format('Y-m');
+            })->map(function ($items, $month) {
+                $impressions = $items->sum('total_impressions');
+                $clicks = $items->sum('total_clicks');
+                $ctr = $impressions > 0 ? round(($clicks / $impressions) * 100, 2) : 0;
+                $position = $items->avg('avg_position');
+
+                return [
+                    'month' => $month,
+                    'impressions' => $impressions,
+                    'clicks' => $clicks,
+                    'ctr' => $ctr,
+                    'position' => round($position, 2),
+                ];
+            })->values();
+        });
+
+        return view('main.gsc_index', compact('records', 'directory', 'chartDataByUrl'));
     }
 
     public function yoy(Request $request)
