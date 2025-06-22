@@ -16,12 +16,14 @@ class GscQshaOhController extends Controller
     {
         $query = GscQshaOh::query();
 
-        if ($request->filled('start_date')) {
-            $query->where('start_date', '>=', $request->input('start_date'));
+        if ($request->filled('start_month')) {
+            $start = Carbon::parse($request->input('start_month'))->startOfMonth();
+            $query->where('start_date', '>=', $start);
         }
 
-        if ($request->filled('end_date')) {
-            $query->where('end_date', '<=', $request->input('end_date'));
+        if ($request->filled('end_month')) {
+            $end = Carbon::parse($request->input('end_month'))->endOfMonth();
+            $query->where('start_date', '<=', $end);
         }
 
         $records = $query->orderBy('start_date', 'desc')->get();
@@ -31,18 +33,20 @@ class GscQshaOhController extends Controller
 
     public function showByDirectory(Request $request)
     {
-        $path = $request->path(); // 例: gsc_qsha_oh/maker
-        $directory = '/' . last(explode('/', $path)) . '/'; // /maker/
+        $path = $request->path();
+        $directory = '/' . last(explode('/', $path)) . '/';
         $baseUrl = 'https://www.qsha-oh.com';
 
         $query = GscQshaOh::where('page_url', $baseUrl . $directory);
 
-        if ($request->filled('start_date')) {
-            $query->where('start_date', '>=', $request->input('start_date'));
+        if ($request->filled('start_month')) {
+            $start = Carbon::parse($request->input('start_month'))->startOfMonth();
+            $query->where('start_date', '>=', $start);
         }
 
-        if ($request->filled('end_date')) {
-            $query->where('end_date', '<=', $request->input('end_date'));
+        if ($request->filled('end_month')) {
+            $end = Carbon::parse($request->input('end_month'))->endOfMonth();
+            $query->where('start_date', '<=', $end);
         }
 
         $records = $query->orderBy('start_date', 'desc')->get();
