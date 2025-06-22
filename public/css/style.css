@@ -32,14 +32,6 @@ p {
     margin: 20px 5% 20px 5%;
 }
 
-
-@media screen and (max-width: 768px) {
-    h1 {
-        font-size: 20px;
-        
-    }
-}
-
 ul {
     list-style-type: none;
     padding: 20px;
@@ -50,4 +42,20 @@ ul {
     max-width: 600px;
 }
 
+
+
+.top-link {
+    font-size: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 20px;
+        
+    }
+    .top-link {
+    font-size: 14px;
+}
+
+}
 
