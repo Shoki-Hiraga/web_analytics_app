@@ -1,5 +1,6 @@
 URLS = [
     "/maker/",
     "/result/",
-    "/usersvoice/"
+    "/usersvoice/",
+    "/historia/"
 ]
