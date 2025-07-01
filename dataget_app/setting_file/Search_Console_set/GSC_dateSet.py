@@ -1,7 +1,7 @@
 from datetime import date, timedelta
 
-start_year=2024
-start_month=6
+start_year = 2024
+start_month = 6
 
 def get_month_end(d):
     next_month = d.replace(day=28) + timedelta(days=4)
@@ -12,14 +12,13 @@ def generate_monthly_date_ranges(year=start_year, month=start_month):
     current = date(year, month, 1)
     ranges = []
 
-    while True:
+    # 実行月より前の月だけループする
+    while current.year < today.year or (current.year == today.year and current.month < today.month):
         start_date = current
         end_date = get_month_end(current)
         ranges.append((start_date, end_date))
 
-        if start_date.year == today.year and start_date.month == today.month:
-            break
-
+        # 翌月へ
         if current.month == 12:
             current = date(current.year + 1, 1, 1)
         else:
