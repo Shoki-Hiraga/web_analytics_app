@@ -25,10 +25,12 @@ Route::get('/gsc_qsha_oh', [GscQshaOhController::class, 'index'])->name('gsc_qsh
 Route::get('/ga4_qsha_oh/maker', [Ga4QshaOhController::class, 'showByDirectory'])->name('ga4_qsha_oh.maker');
 Route::get('/ga4_qsha_oh/result', [Ga4QshaOhController::class, 'showByDirectory'])->name('ga4_qsha_oh.result');
 Route::get('/ga4_qsha_oh/usersvoice', [Ga4QshaOhController::class, 'showByDirectory'])->name('ga4_qsha_oh.usersvoice');
+Route::get('/ga4_qsha_oh/historia', [Ga4QshaOhController::class, 'showByDirectory'])->name('ga4_qsha_oh.historia');
 
 Route::get('/gsc_qsha_oh/maker', [GscQshaOhController::class, 'showByDirectory'])->name('gsc_qsha_oh.maker');
 Route::get('/gsc_qsha_oh/result', [GscQshaOhController::class, 'showByDirectory'])->name('gsc_qsha_oh.result');
 Route::get('/gsc_qsha_oh/usersvoice', [GscQshaOhController::class, 'showByDirectory'])->name('gsc_qsha_oh.usersvoice');
+Route::get('/gsc_qsha_oh/historia', [GscQshaOhController::class, 'showByDirectory'])->name('gsc_qsha_oh.historia');
 
 // GA4 YoY & MoM
 Route::get('/ga4_qsha_oh/yoy', [Ga4QshaOhController::class, 'yoy'])->name('ga4_qsha_oh.yoy');
