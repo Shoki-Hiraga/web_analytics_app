@@ -1,0 +1,5 @@
+URLS = [
+    "/maker/",
+    "/result/",
+    "/usersvoice/"
+]
