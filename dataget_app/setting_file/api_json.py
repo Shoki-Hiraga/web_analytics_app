@@ -1,5 +1,6 @@
 qsha_oh = 'json_file/qsha_oh_data-analytics-platform-336404-2c83e68d846e.json'
 qsha_oh_ga4 = 'json_file/qsha_oh_ga4_recaptcha-corporate-64c879ddb26b.json'
+qsha_oh_gsc_backup = 'json_file/qsha_oh_gsc_recaptcha-corporate-d0fcd31fe1db.json'
 gaisha_oh = 'json_file/gaisha-oh_data-analytics-platform-336404-168eb5c9e66f.json'
 camp = 'json_file/camp_data-analytics-platform-336404-59023c0bcd0e.json'
 garec = 'json_file/garec_data-analytics-platform-336404-d523d921f65b.json'
