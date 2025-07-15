@@ -97,7 +97,7 @@ def insert_gsc_data(page_url, total_impressions, total_clicks, avg_ctr, avg_posi
         traceback.print_exc()
 
 try:
-    from setting_file.Search_Console_set.QshURL_MK_RS_UV import URLS
+    from dataget_app.setting_file.Search_Console_set.QshURL_MK_RS_UV_HS import URLS
     date_ranges = generate_monthly_date_ranges()
 
     for start_date, end_date in date_ranges:

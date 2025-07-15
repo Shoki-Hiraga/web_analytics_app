@@ -6,7 +6,7 @@ from setting_file.header import *
 from setting_file.setFunc import get_db_config
 from setting_file.GA4_Set.GA4_dateSet import generate_monthly_date_ranges
 from setting_file.GA4_Set.GA4_date_Duplicate import record_exists
-from setting_file.GA4_Set.QshURL_MK_RS_UV import URLS
+from dataget_app.setting_file.GA4_Set.QshURL_MK_RS_UV_HS import URLS
 
 
 SESSION_MEDIUM_FILTER = "organic"

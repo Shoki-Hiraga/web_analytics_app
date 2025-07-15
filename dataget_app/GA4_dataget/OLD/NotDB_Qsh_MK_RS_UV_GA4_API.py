@@ -4,7 +4,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from setting_file.header import *
 set_start_date
 set_end_date
-from setting_file.GA4_Set.QshURL_MK_RS_UV import URLS
+from dataget_app.setting_file.GA4_Set.QshURL_MK_RS_UV_HS import URLS
 
 SESSION_MEDIUM_FILTER = "organic"
 
